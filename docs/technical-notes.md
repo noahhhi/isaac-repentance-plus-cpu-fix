@@ -14,8 +14,10 @@ jumps back to `0x00A9EA9E`. It is therefore safe when Windows ASLR loads the
 
 The patcher requires both the known SHA-256 and the exact original bytes by
 default. It writes through a temporary file in the game directory, atomically
-replaces the executable, and verifies the result. It never includes or
-downloads copyrighted game data.
+replaces the executable, and verifies the result. CPU patch operations never
+download game data. The separate downgrade operation asks the user's signed-in
+Steam client to download official depot 3353471, manifest 4926516310915821720;
+no game binaries are distributed by this project.
 
 ## Why a normal Isaac Mod cannot fix it
 

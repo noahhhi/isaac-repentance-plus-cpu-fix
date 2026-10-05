@@ -5,6 +5,16 @@ on:
   pull_request:
 
 jobs:
+  powershell:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        shell: [powershell, pwsh]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test native Windows patch and downgrade
+        shell: ${{ matrix.shell }}
+        run: ./tests/test-powershell.ps1
   test:
     runs-on: ubuntu-latest
     steps:
