@@ -17,28 +17,26 @@
 ### 降级到 1.9.7.15（推荐）
 
 ```powershell
-$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p downgrade }
+$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/windows/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p downgrade }
 ```
 
 ### 安装 CPU 补丁（仅限 1.9.7.17）
 
 ```powershell
-$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p install }
+$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/windows/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p install }
 ```
 
 ### 卸载 CPU 补丁
 
 ```powershell
-$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p uninstall }
+$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/windows/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p uninstall }
 ```
 
-将末尾操作换为 `status` 可查看状态。自动检测 Steam 注册表和额外游戏库；多套安装时需要指定 EXE。可在命令末尾追加：
+**以上命令无需修改盘符或安装路径。** 脚本读取 Steam 注册位置及 `libraryfolders.vdf`，自动查找各游戏库；Steam 和以撒安装在不同盘也可以。可先把末尾操作改为 `status`，确认检测到的游戏路径。
 
-```powershell
--IsaacExe 'D:\SteamLibrary\steamapps\common\The Binding of Isaac Rebirth\isaac-ng.exe' -SteamPath 'D:\Steam' -TimeoutSeconds 3600
-```
+只有自动检测失败或找到多套安装时，才需要在 Steam → 以撒 → 管理 → 浏览本地文件中找到 `isaac-ng.exe`，在命令最后的大括号内追加 `-IsaacExe` 和用引号包裹的实际完整路径。仅当 Steam 本身无法检测时才使用 `-SteamPath`；它应指向包含 `steam.exe` 的目录，而非游戏库。可选参数 `-TimeoutSeconds 3600` 将下载超时延长到一小时。
 
-下载失败时不会执行脚本。`ExecutionPolicy Bypass` 仅影响本次进程，不修改系统执行策略。发布 ZIP 内含两个 PowerShell 脚本；直接运行 `isaac-downgrade.ps1` 时，需要同目录的 `isaac-cpu-fix.ps1`。以上 curl 命令只需下载一个文件。
+下载失败时不会执行脚本。`ExecutionPolicy Bypass` 仅影响本次进程，不修改系统执行策略。直接运行 `isaac-downgrade.ps1` 时，需要 `windows` 目录中同目录的 `isaac-cpu-fix.ps1`。以上 curl 命令只需下载一个文件。
 
 ## Linux / Steam Deck
 
@@ -47,19 +45,19 @@ $p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry
 ### 降级到 1.9.7.15（推荐）
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
 ```
 
 ### 安装 CPU 补丁（仅限 1.9.7.17）
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" install
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" install
 ```
 
 ### 卸载 CPU 补丁
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
 ```
 
 支持默认 Steam 目录、Flatpak 和额外游戏库。将末尾操作改为 `status` 可查看状态；操作后可追加完整 EXE 路径。环境变量 `ISAAC_EXE` 指定游戏，`STEAM_ROOT` 指定 Steam 数据目录，`DOWNLOAD_TIMEOUT=3600` 将超时改为一小时。
@@ -76,4 +74,4 @@ p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-pl
 
 已在 Windows PowerShell 5.1/7、WSL Ubuntu 和 Steam Deck 真机验证。真实 EXE 临时副本安装/卸载后完整哈希一致；Deck 的 Steam 旧版下载、临时目录覆盖及逐文件校验通过。测试未改动已安装的游戏或存档，也未重新测试游戏性能。
 
-[发布页](https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/latest)提供脚本、Windows ZIP 和 `SHA256SUMS.txt`。另见[技术说明（英文）](docs/technical-notes.md)与[验证记录（英文）](docs/verification.md)。
+以上命令直接下载仓库中的当前脚本。手动安装可下载[仓库 ZIP](https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/archive/refs/heads/main.zip)，使用其中的 `windows` 或 `steam-deck` 目录。另见[技术说明（英文）](docs/technical-notes.md)与[验证记录（英文）](docs/verification.md)。

@@ -17,28 +17,26 @@ Close the game and run these commands in **PowerShell**. Windows PowerShell 5.1 
 ### Downgrade to 1.9.7.15 (recommended)
 
 ```powershell
-$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p downgrade }
+$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/windows/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p downgrade }
 ```
 
 ### Install the CPU patch (1.9.7.17 only)
 
 ```powershell
-$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p install }
+$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/windows/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p install }
 ```
 
 ### Uninstall the CPU patch
 
 ```powershell
-$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p uninstall }
+$p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/windows/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p uninstall }
 ```
 
-Replace the final action with `status` to inspect the executable. Steam registry and additional libraries are detected automatically; multiple installations require an explicit EXE. Append these options when needed:
+**No drive letter or installation path needs to be edited in these commands.** The script reads Steam’s registered location and `libraryfolders.vdf` to find the game across its libraries, even when Steam and Isaac are on different drives. Replace the final action with `status` to inspect the detected path before making changes.
 
-```powershell
--IsaacExe 'D:\SteamLibrary\steamapps\common\The Binding of Isaac Rebirth\isaac-ng.exe' -SteamPath 'D:\Steam' -TimeoutSeconds 3600
-```
+If automatic detection fails or finds multiple installations, use Steam → Isaac → Manage → Browse local files to locate `isaac-ng.exe`. Append `-IsaacExe` followed by that file’s full path in quotes, inside the command’s final braces. Only use `-SteamPath` if Steam itself cannot be detected; it must point to the directory containing `steam.exe`, not the game library. `-TimeoutSeconds 3600` optionally extends the download timeout.
 
-Failed downloads are not executed. `ExecutionPolicy Bypass` applies only to this process. The Windows ZIP contains both PowerShell scripts; running `isaac-downgrade.ps1` directly requires `isaac-cpu-fix.ps1` beside it. The curl commands above need only one file.
+Failed downloads are not executed. `ExecutionPolicy Bypass` applies only to this process. Running `isaac-downgrade.ps1` directly requires `isaac-cpu-fix.ps1` beside it in the `windows` directory. The curl commands above need only one file.
 
 ## Linux / Steam Deck
 
@@ -47,19 +45,19 @@ Close the game and run these commands in Bash; on Steam Deck, use Desktop Mode a
 ### Downgrade to 1.9.7.15 (recommended)
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
 ```
 
 ### Install the CPU patch (1.9.7.17 only)
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" install
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" install
 ```
 
 ### Uninstall the CPU patch
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
 ```
 
 Supports default Steam paths, Flatpak and additional libraries. Replace the final action with `status`, or append the full EXE path after the action. `ISAAC_EXE` selects the game, `STEAM_ROOT` selects the Steam data directory, and `DOWNLOAD_TIMEOUT=3600` allows a one-hour download timeout.
@@ -76,4 +74,4 @@ Supports default Steam paths, Flatpak and additional libraries. Replace the fina
 
 Tested with Windows PowerShell 5.1/7, WSL Ubuntu and a physical Steam Deck. Real EXE temporary copies passed install/uninstall hash verification. The Deck’s Steam download and temporary-target downgrade passed all-file verification. These tests did not change installed games or saves, and did not retest gameplay performance.
 
-[Release downloads](https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/latest) include scripts, the Windows ZIP and `SHA256SUMS.txt`. See [technical notes](docs/technical-notes.md) and [verification details](docs/verification.md).
+The commands download the current scripts directly from this repository. For manual installation, download the [repository ZIP](https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/archive/refs/heads/main.zip) and use its `windows` or `steam-deck` directory. See [technical notes](docs/technical-notes.md) and [verification details](docs/verification.md).

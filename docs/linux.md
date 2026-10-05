@@ -5,19 +5,19 @@ The standalone Bash script requires Bash and standard GNU utilities (coreutils, 
 Install the 1.9.7.17 CPU patch:
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" install
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" install
 ```
 
 Uninstall the CPU patch:
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
 ```
 
 Downgrade to 1.9.7.15.J374:
 
 ```bash
-p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
+p=$(mktemp) && curl -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/steam-deck/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
 ```
 
 The downgrade requires the Steam desktop client already running and signed in to an account with access to the depot. It requests official app `250900`, depot `3353471`, manifest `4926516310915821720`, waits for a fresh download-complete log entry, checks the old EXE SHA-256, copies the depot over the installation and verifies every copied file. It does not back up saves, delete extra installation files, disable Steam updates, or change Proton settings. Steam's Verify integrity or subsequent updates may restore the newest version. `uninstall` removes the CPU patch; it does not undo a downgrade. Use Steam Verify integrity to return to the current official version.
