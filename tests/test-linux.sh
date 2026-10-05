@@ -42,7 +42,7 @@ printf 'new build fixture' > "$test_dir/game/isaac-ng.exe"
 OLD_HASH=$(hash_file "$test_dir/depot/isaac-ng.exe")
 export STEAM_ROOT="$test_dir/steam"
 pgrep() { [[ $* == '-x steam' ]]; }
-steam() { printf 'Depot download complete : "%s" (manifest %s)\n' "$test_dir/depot" "$MANIFEST" >> "$STEAM_ROOT/logs/console_log.txt"; }
+steam() { local logged="$test_dir\\depot"; printf 'Depot download complete : "%s" (manifest %s)\n' "$logged" "$MANIFEST" >> "$STEAM_ROOT/logs/console_log.txt"; }
 downgrade "$test_dir/game/isaac-ng.exe"
 [[ $(hash_file "$test_dir/game/isaac-ng.exe") == "$OLD_HASH" && $(< "$test_dir/game/mods/test") == 'keep mod' ]]
 unset -f pgrep steam

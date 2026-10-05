@@ -159,6 +159,8 @@ function Invoke-IsaacDowngrade([string]$Path,[string]$SteamRoot,[int]$Timeout) {
     Assert-GameClosed
     & robocopy.exe $depot $game /E /COPY:DAT /DCOPY:DAT /R:2 /W:1 /NFL /NDL /NP
     if ($LASTEXITCODE -gt 7) { throw "Copy failed ($LASTEXITCODE). Some files may be replaced; resolve the error and rerun." }
+    # Robocopy success codes include 1-7; normalize for callers and CI shells.
+    $global:LASTEXITCODE=0
     foreach ($file in Get-ChildItem -LiteralPath $depot -File -Recurse) {
         $relative=$file.FullName.Substring($depot.Length+1)
         if ((Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash -ne (Get-FileHash -LiteralPath (Join-Path $game $relative) -Algorithm SHA256).Hash) { throw "Verification failed: $relative" }

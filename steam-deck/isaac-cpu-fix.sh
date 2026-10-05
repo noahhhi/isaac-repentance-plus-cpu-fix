@@ -139,6 +139,9 @@ downgrade() {
         sleep 2
     done
     [[ -n $depot ]] || { fail 'Timed out: check Steam Console. Game files were not changed'; return 1; }
+    # Linux Steam can log a Windows-style suffix (ubuntu12_32\steamapps\...).
+    # Keep a literal existing path first, otherwise normalize logged separators.
+    [[ -d $depot ]] || depot=${depot//\\//}
     depot=$(realpath -- "$depot"); game=$(dirname -- "$file")
     [[ $depot != "$game" && -f $depot/isaac-ng.exe ]] || { fail 'Invalid depot directory'; return 1; }
     [[ $(hash_file "$depot/isaac-ng.exe") == "$OLD_HASH" ]] || { fail 'Downloaded EXE is not exact 1.9.7.15.J374'; return 1; }
