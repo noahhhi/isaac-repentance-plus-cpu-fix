@@ -32,7 +32,7 @@ $p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry
 $p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry 3 https://raw.githubusercontent.com/noahhhi/isaac-repentance-plus-cpu-fix/main/windows/isaac-cpu-fix.ps1 -o $p; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p uninstall }
 ```
 
-**No drive letter or installation path needs to be edited in these commands.** The script reads Steam’s registered location and `libraryfolders.vdf` to find the game across its libraries, even when Steam and Isaac are on different drives. Replace the final action with `status` to inspect the detected path before making changes.
+The script reads Steam’s registered location and `libraryfolders.vdf` to find the game across its libraries, even when Steam and Isaac are on different drives. Replace the final action with `status` to inspect the detected path before making changes.
 
 If automatic detection fails or finds multiple installations, use Steam → Isaac → Manage → Browse local files to locate `isaac-ng.exe`. Append `-IsaacExe` followed by that file’s full path in quotes, inside the command’s final braces. Only use `-SteamPath` if Steam itself cannot be detected; it must point to the directory containing `steam.exe`, not the game library. `-TimeoutSeconds 3600` optionally extends the download timeout.
 
