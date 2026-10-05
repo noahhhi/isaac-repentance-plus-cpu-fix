@@ -8,7 +8,7 @@
 
 ## Recommended version
 
-**Downgrading to 1.9.7.15.J374 is recommended.** This patch only fixes the CPU busy loop in the supported newer build, **1.9.7.17**. As observed by the maintainer, that version still has other performance problems, and Brimstone can automatically stop charging when using a controller. **Neither issue is fixed by this patch.** Installing it is not a complete performance or controller fix. Version 1.9.7.15 does not need this CPU patch.
+**Downgrading to 1.9.7.15.J374 is recommended.** This patch only fixes the CPU busy loop in the supported newer build, **1.9.7.17**. This version still has other performance problems, and Brimstone can automatically stop charging when using a controller. **Neither issue is fixed by this patch.** Installing it is not a complete performance or controller fix. Version 1.9.7.15 does not need this CPU patch.
 
 ## Windows
 
@@ -42,7 +42,7 @@ Failed downloads are not executed. `ExecutionPolicy Bypass` applies only to this
 
 ## Linux / Steam Deck
 
-Close the game and run these commands in Bash; on Steam Deck, use Desktop Mode and Konsole. The target is the **Windows `isaac-ng.exe` used by Proton**. Requires Bash and standard GNU utilities; no Python, sudo, or disabling SteamOS read-only protection.
+Close the game and run these commands in Bash; on Steam Deck, use Desktop Mode and Konsole. The target is the **Windows `isaac-ng.exe` used by Proton**. 
 
 ### Downgrade to 1.9.7.15 (recommended)
 
