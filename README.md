@@ -12,7 +12,7 @@
 
 ## Windows
 
-Close the game and run these commands in **PowerShell**. Windows PowerShell 5.1 and PowerShell 7 are supported. Use `curl.exe` to avoid the PowerShell `curl` alias.
+Close the game and run these commands in **PowerShell**. Windows PowerShell 5.1 and PowerShell 7 are supported.
 
 ### Downgrade to 1.9.7.15 (recommended)
 
