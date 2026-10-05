@@ -56,3 +56,5 @@ p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-pl
 ```
 
 单文件支持 `status`，可在操作后追加 EXE 路径。支持 `STEAM_ROOT`、`ISAAC_EXE` 和 `DOWNLOAD_TIMEOUT` 环境变量。Steam 更新行为、卸载与降级的区别同 Windows。详见 [Linux 文档](https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/blob/v0.2.0/docs/linux.md)。
+
+验证：Windows PowerShell 5.1/7、WSL Ubuntu 及 Steam Deck 真机。真实 1.9.7.17 EXE 临时副本安装/卸载后完整哈希恢复一致；Deck 的真实 Steam 旧版下载、临时目录覆盖及逐文件校验通过。真机原有游戏/存档未改动，未重新测试游戏性能。
