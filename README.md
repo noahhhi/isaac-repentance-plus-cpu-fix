@@ -76,10 +76,30 @@ If Steam is installed in a non-default location, pass the executable explicitly:
 .\windows\isaac-cpu-fix.ps1 apply "D:\SteamLibrary\steamapps\common\The Binding of Isaac Rebirth\isaac-ng.exe"
 ```
 
-### Steam Deck
+### Linux / Steam Deck: Bash + curl, no Python
 
-The existing Steam Deck shell launcher still uses Python 3. The new pure
-PowerShell and automatic downgrade commands are for Windows.
+在 Steam Deck 桌面模式的 Konsole / Linux Bash 中执行。目标是 Proton 使用的 Windows EXE。
+
+安装补丁：
+
+```bash
+p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" install
+```
+
+卸载补丁：
+
+```bash
+p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
+```
+
+降级到 1.9.7.15（Steam 已登录）：
+
+```bash
+p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
+```
+
+无需 sudo 或关闭 SteamOS 只读保护。支持默认目录、额外 Steam 库及 Flatpak 数据路径。
+详见 [Linux / Steam Deck 使用说明](docs/linux.md)。
 
 From a terminal in the repository:
 

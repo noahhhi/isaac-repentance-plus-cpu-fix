@@ -7,14 +7,19 @@ on:
 jobs:
   powershell:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        shell: [powershell, pwsh]
     steps:
       - uses: actions/checkout@v4
-      - name: Test native Windows patch and downgrade
-        shell: ${{ matrix.shell }}
+      - name: Test Windows PowerShell 5.1
+        shell: powershell
         run: ./tests/test-powershell.ps1
+      - name: Test PowerShell 7
+        shell: pwsh
+        run: ./tests/test-powershell.ps1
+  bash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash -n steam-deck/isaac-cpu-fix.sh && bash tests/test-linux.sh
   test:
     runs-on: ubuntu-latest
     steps:

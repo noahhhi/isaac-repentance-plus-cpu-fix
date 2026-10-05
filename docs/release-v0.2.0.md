@@ -1,4 +1,4 @@
-# v0.2.0：纯 PowerShell CPU 补丁 + 1.9.7.15 降级
+# v0.2.0：纯 PowerShell / Bash CPU 补丁 + 1.9.7.15 降级
 
 Windows 无需 Python，支持内置 Windows PowerShell 5.1 和 PowerShell 7。
 退出游戏后，在 PowerShell 粘贴下面任一命令。
@@ -31,4 +31,28 @@ $p=Join-Path $env:TEMP ('isaac-'+[guid]::NewGuid()+'.ps1'); curl.exe -fL --retry
 
 使用 `curl.exe` 而非 PowerShell 的 `curl` 别名；下载失败不会执行脚本。可将结尾操作改为 `status` 查看版本/哈希，或追加 `-IsaacExe '完整的 isaac-ng.exe 路径'`、`-SteamPath 'Steam目录'`。执行策略参数仅作用于本次进程。
 
-附件含独立入口 `isaac-cpu-fix.ps1`，以及 ZIP 中配套的 `isaac-downgrade.ps1`。后者需要同目录的前者。`SHA256SUMS.txt` 提供附件校验值。仓库保留 Steam Deck 的原 Python 工具；本次无 Python 的实现面向 Windows。
+附件含独立入口 `isaac-cpu-fix.ps1`，以及 ZIP 中配套的 `isaac-downgrade.ps1`。后者需要同目录的前者。`SHA256SUMS.txt` 提供附件校验值。
+
+## Linux / Steam Deck：纯 Bash 一键命令
+
+同样无需 Python。Steam Deck 桌面模式打开 Konsole，先关闭游戏；目标为通过 Proton 运行的 Windows EXE。无需 sudo，不修改 SteamOS 只读设置。
+
+安装 CPU 补丁：
+
+```bash
+p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" install
+```
+
+卸载 CPU 补丁：
+
+```bash
+p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" uninstall
+```
+
+降级到 1.9.7.15.J374：
+
+```bash
+p=$(mktemp) && curl -fL --retry 3 https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/releases/download/v0.2.0/isaac-cpu-fix.sh -o "$p" && bash "$p" downgrade
+```
+
+单文件支持 `status`，可在操作后追加 EXE 路径。支持 `STEAM_ROOT`、`ISAAC_EXE` 和 `DOWNLOAD_TIMEOUT` 环境变量。Steam 更新行为、卸载与降级的区别同 Windows。详见 [Linux 文档](https://github.com/noahhhi/isaac-repentance-plus-cpu-fix/blob/v0.2.0/docs/linux.md)。
