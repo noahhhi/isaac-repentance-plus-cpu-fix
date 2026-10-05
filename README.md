@@ -14,6 +14,10 @@
 
 Close the game and run these commands in **PowerShell**. Windows PowerShell 5.1 and PowerShell 7 are supported.
 
+**Administrator privileges are normally not required.** Use a regular PowerShell window first. You can also use Windows Terminal, but select a **PowerShell** tab, not Command Prompt (cmd) or WSL, for the Windows commands below. Windows Terminal itself does not imply administrator privileges.
+
+Installing/uninstalling the patch and downgrading require write access to the game directory. If the script reports **Access denied** or **UnauthorizedAccessException** when writing there, close the game, right-click PowerShell or Windows Terminal, choose **Run as administrator**, open a PowerShell tab and retry the same command. A C: or D: installation alone does not determine whether elevation is needed; the folder permissions do. For downgrade, keep Steam running and signed in to your usual account. Do not switch to a different Windows user, as that can change Steam/account detection. The script does not elevate itself automatically.
+
 ### Downgrade to 1.9.7.15 (recommended)
 
 ```powershell

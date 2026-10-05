@@ -14,6 +14,10 @@
 
 先退出游戏，在 **PowerShell** 中执行。支持 Windows PowerShell 5.1 和 PowerShell 7。使用 `curl.exe`，避免 PowerShell 的 `curl` 别名。
 
+**通常不需要管理员权限。** 先使用普通 PowerShell 窗口即可。也可以使用 Windows 终端，但执行下面的 Windows 命令时，应选择 **PowerShell** 标签页，而非命令提示符（cmd）或 WSL。打开 Windows 终端并不代表已经获得管理员权限。
+
+安装/卸载补丁和降级都需要对游戏目录有写入权限。如果脚本写入该目录时报 **Access denied（拒绝访问）** 或 **UnauthorizedAccessException**，请先关闭游戏，再右键 PowerShell 或 Windows 终端，选择**以管理员身份运行**，打开 PowerShell 标签页后重新执行同一命令。是否需要管理员权限取决于文件夹权限，与安装在 C 盘还是 D 盘没有必然关系。降级时请保持 Steam 以你平常的账号运行并登录；不要切换成另一个 Windows 用户，以免影响 Steam 和账号检测。脚本不会自动请求管理员权限。
+
 ### 降级到 1.9.7.15（推荐）
 
 ```powershell
